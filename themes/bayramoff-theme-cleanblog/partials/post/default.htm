@@ -1,0 +1,43 @@
+description = "Blog Post page"
+
+[viewBag]
+==
+{% set post = __SELF__.post %}
+{% if post.featured_images.count %}
+        {% for image in post.featured_images %}
+            <!-- Page Header -->
+            <!-- Set your background image for this header on the line below. -->
+            <header class="intro-header" style="background-image: url('{{ image.path }}')">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                            <div class="post-heading">
+                                <h1>{{ post.title }}</h1>
+                                <h2 class="subheading">{{ post.summary }}</h2>
+                                <span class="meta"> Posted
+                                        {% if post.categories.count %} in {% endif %}
+                                        {% for category in post.categories %}
+                                            <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                                        {% endfor %}
+                                        on {{ post.published_at|date('M d, Y') }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        {% endfor %}
+{% endif %}
+
+    
+  <!-- Post Content -->
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    {{ post.content_html|raw }}
+                </div>
+            </div>
+        </div>
+    </article>
+<hr>

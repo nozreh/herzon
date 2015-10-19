@@ -1,0 +1,50 @@
+[viewBag]
+==
+{% set posts = __SELF__.posts %}
+
+
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    {% for post in posts %}
+        
+        <div class="post-preview">
+        <a href="{{ post.url }}">
+            <h2 class="post-title">
+                {{ post.title }}
+            </h2>
+            <h3 class="post-subtitle">
+                {{ post.summary }}
+            </h3>
+        </a>
+        <p class="post-meta"> Posted
+                {% if post.categories.count %} in {% endif %}
+                {% for category in post.categories %}
+                    <a href="{{ category.url }}">{{ category.name }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+                on {{ post.published_at|date('M d, Y') }}
+        </p>
+        </div>
+        <hr>
+        
+    {% else %}
+        <li class="no-data">{{ noPostsMessage }}</li>
+    {% endfor %}     
+  
+    <!-- Pager -->
+    {% if posts.lastPage > 1 %}
+        <ul class="pager">
+            {% if posts.currentPage > 1 %}
+                <li class="prev"><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage-1) }) }}">&larr; Prev</a></li>
+            {% endif %}
+        
+            {% for page in 1..posts.lastPage %}
+                <li class="{{ posts.currentPage == page ? 'active' : null }}">
+                    <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+        
+            {% if posts.lastPage > posts.currentPage %}
+                <li class="next"><a href="{{ this.page.baseFileName|page({ (pageParam): (posts.currentPage+1) }) }}">Next &rarr;</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+</div>
