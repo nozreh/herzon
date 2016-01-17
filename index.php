@@ -1,4 +1,7 @@
 <?php
+
+print phpinfo();
+exit;
 /**
  * October - The PHP platform that gets back to basics.
  *
