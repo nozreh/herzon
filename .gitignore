@@ -1,2 +1,4 @@
 .DS_Store
 *.log
+/config/app.php
+/config/dabatabase.php
