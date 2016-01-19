@@ -1,4 +1,5 @@
 .DS_Store
 *.log
-/config/app.php
-/config/dabatabase.php
+config/app.php
+config/dabatabase.php
+vendor
