@@ -37,7 +37,9 @@
         "phpunit/phpunit-selenium": ">=1.2"
     },
     "autoload-dev": {
-        "classmap": []
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "scripts": {
         "post-create-project-cmd": [
